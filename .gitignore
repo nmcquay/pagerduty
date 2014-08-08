@@ -1,0 +1,6 @@
+composer.lock
+composer-test.lock
+vendor/
+.idea
+._.DS_Store
+.DS_Store
