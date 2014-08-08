@@ -42,7 +42,7 @@ $resp = $evt->resolve();
 var_dump( $resp );
 
 // acknowledge() and resolve() require an incident_key to exist before 
-// can call them
+// calling them
 
 // You can also initialize an event using the same JSON format pageduty
 // accepts (as a PHP array):
