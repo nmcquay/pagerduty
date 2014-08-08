@@ -2,7 +2,10 @@ PagerDuty
 =========
 
 Library for interacting with PagerDuty REST API
-(currently only implements Events/Integration API: http://developer.pagerduty.com/documentation/integration/events)
+
+currently only implements Events/Integration API:
+
+http://developer.pagerduty.com/documentation/integration/events
 
 Composer Install:
 -----------------
@@ -15,13 +18,16 @@ Events:
 -------
 ```
 $evt = new \PagerDuty\Event();
-$evt->setServiceKey('32 char GUID') //found at https://<your subdomain>.pagerduty.com/services
+// service key found at https://<your subdomain>.pagerduty.com/services
+$evt->setServiceKey('32 char GUID') 
     ->setDescription('an example description')
-    //->setIncidentKey('example001') //optional, will get set automatically by pagerduty response if not set here
+    //incident key will get set automatically by pagerduty response if not set here
+    //->setIncidentKey('example001') //optional
     ->setClient('Example Client') //optional
     ->setClientUrl('http://www.example.com') //optional
     ->setDetails( array('test' => 1) ) //optional
-    ->setDetail( 'appended Detail key', 'with a value' ); //optional -- will add/alter a key to the details object
+    //setDetail will add/alter a key to the details object
+    ->setDetail( 'appended Detail key', 'with a value' ); //optional
 $resp = $evt->trigger();
 
 var_dump( $resp, $evt->toArray(), $evt->getIncidentKey() );
@@ -35,13 +41,15 @@ var_dump( $resp );
 $resp = $evt->resolve();
 var_dump( $resp );
 
-//acknowledge() and resolve() require an incident_key to exist before you can call them
+// acknowledge() and resolve() require an incident_key to exist before 
+// can call them
 
-//You can also initialize an event using the same JSON format pageduty accepts (as a PHP array):
+// You can also initialize an event using the same JSON format pageduty
+// accepts (as a PHP array):
 $evtB = new \PagerDuty\Event( array(    
       "service_key" => "32 char GUID",
       "incident_key" => "srv01/HTTP",
-      "description" => "FAILURE for production/HTTP on machine srv01.example.com",
+      "description" => "FAILURE on machine srv01.example.com",
       "client" => "Sample Monitoring Service",
       "client_url" => "https://monitoring.example.com",
       "details" => array(
