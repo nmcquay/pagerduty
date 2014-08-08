@@ -1,0 +1,54 @@
+PagerDuty
+=========
+
+Library for interacting with PagerDuty REST API
+(currently only implements Events/Integration API: http://developer.pagerduty.com/documentation/integration/events)
+
+Composer Install:
+-----------------
+`"nmcquay/pagerduty": "0.1.*"`
+
+Examples:
+=========
+
+Events:
+-------
+```
+$evt = new \PagerDuty\Event();
+$evt->setServiceKey('32 char GUID') //found at https://<your subdomain>.pagerduty.com/services
+    ->setDescription('an example description')
+    //->setIncidentKey('example001') //optional, will get set automatically by pagerduty response if not set here
+    ->setClient('Example Client') //optional
+    ->setClientUrl('http://www.example.com') //optional
+    ->setDetails( array('test' => 1) ) //optional
+    ->setDetail( 'appended Detail key', 'with a value' ); //optional -- will add/alter a key to the details object
+$resp = $evt->trigger();
+
+var_dump( $resp, $evt->toArray(), $evt->getIncidentKey() );
+
+//now assuming everything worked, you should have triggered a pagerduty event
+//we can acknowledge the event:
+$resp = $evt->acknowledge();
+var_dump( $resp );
+
+//and we can resolve the event:
+$resp = $evt->resolve();
+var_dump( $resp );
+
+//acknowledge() and resolve() require an incident_key to exist before you can call them
+
+//You can also initialize an event using the same JSON format pageduty accepts (as a PHP array):
+$evtB = new \PagerDuty\Event( array(    
+      "service_key" => "32 char GUID",
+      "incident_key" => "srv01/HTTP",
+      "description" => "FAILURE for production/HTTP on machine srv01.example.com",
+      "client" => "Sample Monitoring Service",
+      "client_url" => "https://monitoring.example.com",
+      "details" => array(
+          "ping time" => "1500ms",
+          "load avg" => "0.75"
+      )
+) );
+$evtB->trigger();
+```
+
