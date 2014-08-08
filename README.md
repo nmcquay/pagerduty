@@ -16,7 +16,7 @@ Examples:
 
 Events:
 -------
-```
+```php
 $evt = new \PagerDuty\Event();
 // service key found at https://<your subdomain>.pagerduty.com/services
 $evt->setServiceKey('32 char GUID') 
