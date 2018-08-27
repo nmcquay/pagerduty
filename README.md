@@ -1,3 +1,10 @@
+This package is no longer maintained
+====================================
+The pagerduty api will be changing soon (Oct 2018).
+I do not currently have a pagerduty account or an active php setup to develop against to update this package.
+I'd recommend switching to this package: https://github.com/adilbaig/pagerduty
+
+
 PagerDuty
 =========
 
